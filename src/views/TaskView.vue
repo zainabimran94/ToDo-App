@@ -13,9 +13,9 @@
       </div>
       
   
-
+     <!-- TaskForm -->
   <TaskForm class="task-form" @create-task="createTask" />
-
+     <!--TaskList-->
   <ul class="task-list" v-if="taskList.length > 0">
       <TaskList
       :tasks="tasks" :selectedCategory="selectedCategory" 
@@ -29,6 +29,7 @@
         @delete-task="deleteTask"
       />
     </ul>
+    <!--Task-Msgs-->
     <p v-else class="tasks-msg">
       <Icon icon="noto-v1:sad-but-relieved-face" />
       <span>You have no task's to complete! Add one!</span>
@@ -53,10 +54,19 @@ import {useRouter} from 'vue-router';
 
 const taskList = ref([]);
 
+//1: A watcher is set up to watch for changes in a value (first argument), 
+//and to do something when a change occurs(second argument).
+
+//2: Deep true is set up when watching an array or object, 
+//so that vue knows it should watch the nested data for changes.
+
 watch( taskList, () => {
     setTaskListLocalStorage (); },
    { deep: true },
-)
+);
+
+//Computed properties are used to perform calculations on our data, 
+//and then use the result as an up-to-date variable.
 const pendingTaskCount = computed(() => {
   return taskList.value.filter(task => !task.isCompleted).length;
 });
@@ -70,7 +80,6 @@ const fetchTaskList = () => {
     taskList.value = savedTaskList;
   }
 }
-
 
 fetchTaskList();
 

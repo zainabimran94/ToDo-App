@@ -11,6 +11,8 @@ const task = ref({
 });
 const selectedCategory= ref('');
 
+// Function to create a task, emitting an event with task details if valid; 
+// otherwise, sets error messages and flags.
 
 const createTask = () => {
   task.value.invalid = false;
@@ -27,7 +29,6 @@ const createTask = () => {
     }
   task.value.invalid = true;
   return;
-  
   
 }; 
 
