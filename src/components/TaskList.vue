@@ -10,11 +10,8 @@ const props = defineProps({
   index: {
     type: Number,
     default: 0,
-  },
-  selectedCategory: {
-    type: String,
-    required: true,
-  },
+  }
+
 });
 
 //defineEmits is for defining custom events that the component can emit to communicate with its parent.
