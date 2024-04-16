@@ -1,6 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
+import { useSelectedCategory } from '@/composables/useSelectedCategory';
 
 const emit = defineEmits(["create-task"]);
 
@@ -9,12 +10,9 @@ const task = ref({
   invalid: false,
   errMsg: "",
 });
-const selectedCategory= ref('');
+const { selectedCategory, setSelectedCategory } = useSelectedCategory();
 
-// Function to create a task, emitting an event with task details if valid; 
-// otherwise, sets error messages and flags.
-
-const createTask = () => {
+  const createTask = () => {
   task.value.invalid = false;
   if (task.value.task !== '' && selectedCategory.value !== '') {
   emit('create-task',task.value.task, selectedCategory.value);
@@ -29,14 +27,19 @@ const createTask = () => {
     }
   task.value.invalid = true;
   return;
-  
 }; 
+
+
+const handleCategorySelection = (category) => {
+  setSelectedCategory(category);
+};
+
 
 </script>
 
 <template>
 
-<div class="container">
+  <div class="container">
   <div class="form" :class="{ 'form-err': task.invalid }">
     <input type="text" v-model="task.task" placeholder="What do you want to do today?" @keyup.enter="createTask" />
     
@@ -48,8 +51,8 @@ const createTask = () => {
         type="radio"
         name="category"
         value="work"
-        v-model="selectedCategory" 
-        @keyup.enter="createTask"/>
+        @change="handleCategorySelection('work')" 
+        :checked="selectedCategory === 'work'" />
         <div >work</div>
       </label>
 
@@ -59,8 +62,8 @@ const createTask = () => {
         type="radio"
         name="category"
         value="personal"
-        v-model="selectedCategory" 
-        @keyup.enter="createTask" />
+        @change="handleCategorySelection('personal')" 
+        :checked="selectedCategory === 'personal'" />
          <div>personal</div>
       </label>
 
@@ -70,8 +73,8 @@ const createTask = () => {
         type="radio"
         name="category"
         value="shopping"
-        v-model="selectedCategory" 
-        @keyup.enter="createTask"/>
+        @change="handleCategorySelection('shopping')" 
+        :checked="selectedCategory === 'shopping'" />
         <div>shopping</div>
       </label>
       

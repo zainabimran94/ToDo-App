@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-//defineProps is for defining props that the component expects to receive from its parent.
+//defineProps is for defining props that the coponent expects to receive from its parent.
 const props = defineProps({
   task: {
     type: Object,
@@ -10,25 +10,23 @@ const props = defineProps({
   index: {
     type: Number,
     default: 0,
-  }
+  },
 
 });
 
 //defineEmits is for defining custom events that the component can emit to communicate with its parent.
 defineEmits(["edit-task", "update-task", "toggle-complete", "delete-task"]);
+
+
+
 </script>
 
 <template>
-
-  <li>
-    <!--This code creates a checkbox to mark tasks as completed. 
-    When clicked, it sends a message to the parent component to toggle the completion status.
-    It also allows editing task names, sending the new name to the parent component when edited -->
-
+  <li >
     <input type="checkbox" :value="task.isCompleted"  @input="$emit('toggle-complete', index)" />
     <div class="task">
       <input v-if="task.isEditing" type="text" :value="task.task"  @input="$emit('update-task', $event.target.value, index)" />
-      <span v-else :class="{'completed-task': task.isCompleted,}">
+      <span v-else :class="{'completed-task': task.isCompleted}">
         {{ task.task }}
       </span>
     </div>
@@ -118,4 +116,5 @@ li {
   }
   
 }
+
 </style>

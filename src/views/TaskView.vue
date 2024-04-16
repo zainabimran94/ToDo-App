@@ -18,7 +18,6 @@
      <!--TaskList-->
   <ul class="task-list" v-if="taskList.length > 0">
       <TaskList
-      :tasks="tasks" :selectedCategory="selectedCategory" 
         v-for="(task, index) in taskList"
         :task="task"
         :index="index"
@@ -54,6 +53,7 @@ import {useRouter} from 'vue-router';
 
 const taskList = ref([]);
 
+
 //1: A watcher is set up to watch for changes in a value (first argument), 
 //and to do something when a change occurs(second argument).
 
@@ -73,6 +73,7 @@ const pendingTaskCount = computed(() => {
 const tasksCompleted = computed(() => {
   return taskList.value.every((task) => task.isCompleted);
 });
+
 
 const fetchTaskList = () => {
   const savedTaskList = JSON.parse(localStorage.getItem("taskList"));
