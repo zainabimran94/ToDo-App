@@ -21,6 +21,7 @@
         v-for="(task, index) in taskList"
         :task="task"
         :index="index"
+        :category="task.category"
         
         @edit-task="toggleEditTask"
         @update-task="updateTask"
@@ -49,24 +50,18 @@ import {ref, watch, computed} from 'vue';
 import TaskForm from '../components/TaskForm.vue';
 import TaskList from '../components/TaskList.vue';
 import {useRouter} from 'vue-router';
+import { useSelectedCategory } from "@/composables/useSelectedCategory";
 
 
 const taskList = ref([]);
 
-
-//1: A watcher is set up to watch for changes in a value (first argument), 
-//and to do something when a change occurs(second argument).
-
-//2: Deep true is set up when watching an array or object, 
-//so that vue knows it should watch the nested data for changes.
+const { selectedCategory } = useSelectedCategory();
 
 watch( taskList, () => {
     setTaskListLocalStorage (); },
    { deep: true },
 );
 
-//Computed properties are used to perform calculations on our data, 
-//and then use the result as an up-to-date variable.
 const pendingTaskCount = computed(() => {
   return taskList.value.filter(task => !task.isCompleted).length;
 });
@@ -89,12 +84,13 @@ const setTaskListLocalStorage = () => {
 };
 
 
-const createTask = (task) => {
+const createTask = (task, category) => {
   taskList.value.push ({
   id: uid(),
   task,
   isCompleted: false,
   isEditing: null,
+  category,
   });
   };
 

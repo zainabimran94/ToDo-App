@@ -7,6 +7,7 @@ const emit = defineEmits(["create-task"]);
 
 const task = ref({
   task: "",
+  category: '',
   invalid: false,
   errMsg: "",
 });
@@ -16,10 +17,9 @@ const { selectedCategory, setSelectedCategory } = useSelectedCategory();
   task.value.invalid = false;
   if (task.value.task !== '' && selectedCategory.value !== '') {
   emit('create-task',task.value.task, selectedCategory.value);
-  task.value.task = '';
-  selectedCategory.value = '';
   return;
   }
+
   if (selectedCategory.value === '') {
     task.value.errMsg = 'Please select a category!';
     } else {
@@ -44,31 +44,32 @@ const handleCategorySelection = (category) => {
     <input type="text" v-model="task.task" placeholder="What do you want to do today?" @keyup.enter="createTask" />
     
     <h4>Pick a category</h4>
+
     <div class="category">
       <label class="work">
-      <Icon class="icon" icon="streamline-emojis:briefcase" />
-        <input 
+      <Icon class="icon" icon="streamline-emojis:briefcase" /> 
+       <input 
         type="radio"
         name="category"
         value="work"
         @change="handleCategorySelection('work')" 
         :checked="selectedCategory === 'work'" />
         <div >work</div>
-      </label>
+        </label>
 
       <label class="personal">
-        <Icon class="icon" icon="emojione:notebook-with-decorative-cover" />
-        <input 
+       <Icon class="icon" icon="emojione:notebook-with-decorative-cover" /> 
+       <input 
         type="radio"
         name="category"
         value="personal"
         @change="handleCategorySelection('personal')" 
         :checked="selectedCategory === 'personal'" />
          <div>personal</div>
-      </label>
+        </label>
 
       <label class="shopping">
-        <Icon class="icon" icon="twemoji:shopping-cart" />
+      <Icon class="icon" icon="twemoji:shopping-cart" /> 
        <input 
         type="radio"
         name="category"
@@ -76,7 +77,7 @@ const handleCategorySelection = (category) => {
         @change="handleCategorySelection('shopping')" 
         :checked="selectedCategory === 'shopping'" />
         <div>shopping</div>
-      </label>
+        </label>
       
     </div> 
     <p class="err-msg" v-if="task.invalid">{{ task.errMsg }}</p>
@@ -169,7 +170,7 @@ input[type="radio"]{
 .category label div {
 	color: black;
 	font-size: 1.125rem;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 }
 
 .icon{
