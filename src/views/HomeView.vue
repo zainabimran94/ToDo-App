@@ -13,7 +13,7 @@ const getStarted = () => {
   <main>
     <div class="home">
       <header> 
-      <img src= "../assets/Task-list.svg" >
+      <img src= "/src/Task-List.svg" >
       <h1>Doingly</h1>
       </header>
       
