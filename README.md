@@ -2,6 +2,8 @@
 
 A simple and intuitive task management app built with Vue 3, Vite and Tailwind CSS. This app allows you to organize tasks by categories, add new tasks, edit existing ones, and delete tasks. It also provides an overview of pending tasks and notifies you when there are no tasks for today.
 
+# Demo Link: https://to-do-app-ecru-three.vercel.app/
+
 
 ## Recommended IDE Setup
 
